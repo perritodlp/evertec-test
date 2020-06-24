@@ -4,10 +4,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class OrderController
+class OrderController extends AbstractController
 {
     /**
      * @Route("/")
@@ -24,6 +25,8 @@ class OrderController
      */
     public function orderPreview($product_id)
     {
-        return new Response(sprintf('Order preview "%s": ', $product_id));
+        return $this->render('order/order-preview.html.twig', [
+            'product_id' => $product_id
+        ]);
     }
 }
