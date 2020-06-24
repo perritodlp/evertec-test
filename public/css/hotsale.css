@@ -1,0 +1,315 @@
+.btn-group-sm>.btn, .btn-sm {
+  padding: .25rem .5rem;
+  font-size: 18px;
+  line-height: 2;
+  border-radius: .2rem;
+}
+.ajax_add_to_cart_button.btn.disabled {
+line-height: 2;
+}
+header .navbar{
+  background: #efefef;
+  border-bottom: 3px solid #222;
+  margin-bottom: 0px;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: #333;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #fff;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 200px;
+  padding: 8px 0;
+  margin: 2px 0 0;
+  font-size: 16px;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #027e91;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px !important;
+}
+
+ul.navbar-nav li:nth-child(2) .dropdown-menu{
+background: #FF0000;
+}
+ul.navbar-nav li:nth-child(3) .dropdown-menu{
+background: #553285;
+}
+ul.navbar-nav li:nth-child(4) .dropdown-menu{
+background: #0666BE;
+}
+ul.navbar-nav li:nth-child(5) .dropdown-menu{
+background: #FF8E00;
+}
+ul.navbar-nav li:nth-child(6) .dropdown-menu{
+background: #09736A;
+}
+ul.navbar-nav li:nth-child(7) .dropdown-menu{
+background: #592B02;
+}
+ul.navbar-nav li:nth-child(8) .dropdown-menu{
+background: #FF7DCE;
+}
+ul.navbar-nav li:nth-child(9) .dropdown-menu{
+background: #333;
+}
+ul.navbar-nav li:nth-child(10) .dropdown-menu{
+background: #FFEA0E;
+}
+.form-control, .btn{
+  font-size: 16px;
+}
+#search_query_top{
+    height: 38px;
+    width: 200px;
+    border-radius: 4px;
+}
+#btn-cart{
+  color: #FFC000;
+  background-color: #1F3447;
+  border-color: #1F3447;
+  border-radius: 4px;
+}
+.span-block{
+  display: block;
+}
+span.oferta{
+  color: #c82a35;
+  font-weight: 900;
+}
+.ajax_add_to_cart_button.btn:hover{
+  color: #FFC000;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 1px 1px 1px 1px rgba(255, 254, 252, 0.1);
+box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.btn-cart-div{
+  position: relative;
+  display: block;
+  height: auto;
+}
+.btn-cart-div:hover .cart_block.block,
+.cart_block.block:hover{
+  display: block !important;
+}
+#header .cart_block {
+  top: 80% !important;
+}
+.part-price.card-text{
+  min-height: 90px;
+}
+#productos-home .productos img.card-img-top{
+  border: 5px solid transparent;
+}
+#productos-home .productos:nth-of-type(1) img.card-img-top{
+  border-color: #FF0000;
+}
+#productos-home .productos:nth-of-type(2) img.card-img-top{
+  border: 5px solid #FF8E00;
+}
+#productos-home .productos:nth-of-type(3) img.card-img-top{
+  border: 5px solid rgba(76,78,89,.8);
+}
+#productos-home .productos:nth-of-type(4) img.card-img-top{
+  border: 5px solid rgba(85,50,133,.8);
+}
+#productos-home .productos:nth-of-type(5) img.card-img-top{
+  border: 5px solid rgba(9,115,106,.8);
+}
+#productos-home .productos:nth-of-type(6) img.card-img-top{
+  border: 5px solid rgba(242,183,5,.8);
+}
+#productos-home .productos:nth-of-type(7) img.card-img-top{
+  border: 5px solid rgba(249,238,138,.3);
+}
+#productos-home .productos:nth-of-type(8) img.card-img-top{
+  border: 5px solid rgba(255,0,0,.8);
+}
+#productos-home .productos:nth-of-type(9) img.card-img-top{
+  border: 5px solid rgba(249,238,138,.3);
+}
+.breadcrumb-item{
+  padding-left: 0 !important;
+}
+.breadcrumb-item:before{
+  content: '' !important;
+  display: none !important;
+}
+.navigation-pipe {
+  margin: auto 5px;
+}
+.producto.detalle span{
+  color: #333;
+}
+.socialsharing_product button {
+  margin-bottom: 3px;
+  border: none;
+  background-color: transparent;
+  padding: 3px;
+}
+
+.discount table thead,
+.detalle-orden table thead,
+#cart_summary thead,
+#order-list thead {
+background-color: #1F3447;
+}
+
+.discount table thead th,
+.detalle-orden table thead th,
+#cart_summary thead th,
+#order-list thead th {
+background-color: transparent;
+color: #fff;
+border-color: #182938;
+}
+#cart_summary tbody td {
+background-color: #fff;
+}
+#cart_summary tbody td.cart_avail span {
+background-color: #1F3447;
+border-color: #1F3447;
+}
+#cart_summary .btn.button-plus span, #cart_summary .btn.button-minus span {
+background-color: #1F3447;
+border-color: #1F3447;
+background-image: none;
+color: #fff;
+}
+.fade{
+opacity: 1;
+}
+.fade:not(.show) {
+opacity: 0;
+}
+ol, ul{
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.btn-main:hover{
+color: #FFC000;
+}
+label {
+color: #333;
+margin-top: .5rem;
+margin-bottom: 0;
+}
+.boton_pago_ad{
+float: right;
+margin: -17px 10px 10px 10px;
+padding: 10px;
+line-height: 40px;
+color: #FFC000 !important;
+text-align: center;
+background-color: #1F3447;
+display: block;
+min-width: 120px;
+line-height: 2;
+border-radius: .2rem;
+}
+
+#manufacturers_block_left h4.title_block {
+border-top: 5px solid #15a0bf;
+}
+
+.logos-pagos{
+margin: 10px auto;
+}
+
+.logos-pagos ul {
+list-style: none;
+text-align: right;
+}
+
+.logos-pagos li {
+max-height: 60px;
+display: inline-block;
+margin-left: 10px;
+}
+
+.logos-pagos img {
+max-height: 60px;
+}
+
+p.payment_module a.ep_pagos {
+background: url(../../img/pagos/logox90.png) 15px 12px no-repeat #fbfbfb; 
+padding-left: 220px;
+}
+
+.blockproductscategory li {
+background-color: #fff;
+}
+.price_display.art-price {
+min-height: 55px;
+}
+.electro span.heading-counter {
+font: bold 13px/22px Arial, Helvetica, sans-serif;
+float: right;
+color: #333;
+text-transform: none;
+margin-bottom: 10px; 
+}
+.social-sharing{
+cursor: pointer;
+}
+.social-sharing:hover{
+opacity: .8;
+}
+
+.usefulness_btn.btn-main{
+border-style: unset;
+border-radius: 4px;
+font-size: 16px;
+}
+
+#usefull_link_block .ico-producto {
+font-size: 24px;
+}
+
+header .cuenta a{
+/*padding: 0;*/
+margin: 0;
+}
+
+header .cuenta a{
+display: inline-block;
+padding: 5px 10px;
+color: #fff;
+}
+
+header .cuenta a.btn-warning{
+color: #212529;
+}
+
+.cart-prices .price.cart_block_shipping_cost.ajax_cart_shipping_cost{
+font-size: 16px;
+}
+
+.ajax_block_product {
+margin-bottom: 20px;
+}
+
+.card-img-top {
+border: 5px solid #777;
+}
+
+.articulo a.lnk_img.product-image {
+border: none;
+display: block;
+}
+
+input[type=text].form-control, input[type=password].form-control, input[type=email].form-control, select.form-control {
+height: 28px !important;
+font-size: 13.5px;
+}
+

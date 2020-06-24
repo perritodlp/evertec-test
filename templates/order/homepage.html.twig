@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div id="HOOK_SHOPPING_CART"></div>
+    <h4>
+        <i class="fas fa-hand-point-down"></i> Por favor complete los siguientes datos:
+    </h4>
+    <p class="cart_navigation clearfix"></p>
+
+    <!-- End Shopping Cart -->
+    <!-- Create account / Guest account / Login block -->
+    <div id="opc_new_account" class="opc-main-block">
+        <h1 class="page-heading step-num"><span>1</span> Iniciar compra</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active show" id="registro-tab" data-toggle="tab" href="#registro" role="tab"
+                   aria-controls="registro" aria-selected="true">Registro</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="registro" role="tabpanel" aria-labelledby="registro-tab">
+                <form action="/order-preview" method="post" id="new_account_form" class="std"
+                      autocomplete="on" autofill="on">
+                    <fieldset>
+                        <div class="box">
+
+                            <div id="opc_account_form" class="unvisible" style="display: block;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 id="new_account_title" class="page-subheading">Datos personales</h3>
+
+                                        <!-- Error return block -->
+                                        <div id="opc_account_errors" class="alert alert-danger" style="display:none;"></div>
+                                        <!-- END Error return block -->
+                                        <!-- Account -->
+                                        <div class="required form-group">
+                                            <label for="firstname">Nombre completo <sup>*</sup></label>
+                                            <input type="text" class="text form-control validate" id="customer_name" name="customer_name" onblur="$('#firstname').val($(this).val());" data-validate="isSimpleName" value="" required>
+                                        </div>
+
+                                        <div class="required text form-group">
+                                            <label for="email">Correo electrónico <sup>*</sup></label>
+                                            <input type="email" class="text form-control validate" id="customer_email" name="customer_email" data-validate="isEmail" value="" required>
+                                        </div>
+
+                                        <div class="required form-group">
+                                            <label for="cedula">Celular<sup>*</sup></label>
+                                            <input type="number" size="10" minlength="7" maxlength="10" class="is_required validate form-control" data-validate="isNumber" id="customer_mobile" name="customer_mobile" value="" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="submit opc-add-save clearfix">
+                                    <p class="required opc-required pull-right">
+                                        <sup>*</sup>Campo requerido
+                                    </p>
+                                    <br/>
+                                    <button type="submit" name="submitAccount" id="submitAccount" class="btn btn-main btn-lg"><span>Enviar <i class="icon-chevron-right right"></i></span></button>
+                                </div>
+                                <div style="display: none;" id="opc_account_saved" class="alert alert-success">
+                                    Información de cuenta guardada exitosamente.
+                                </div>
+                                <!-- END Account -->
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

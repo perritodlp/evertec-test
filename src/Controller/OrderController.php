@@ -15,7 +15,7 @@ class OrderController extends AbstractController
      */
     public function homepage()
     {
-        return new Response('Hello fucking World!');
+        return $this->render('order/homepage.html.twig');
     }
 
     /**
