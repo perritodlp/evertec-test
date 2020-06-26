@@ -31,6 +31,8 @@ class PaymentResponseController extends AbstractController
         $product = '';
         $customer = '';
         $status = '';
+        $additional_info = '';
+        $operation_code = '';
 
         // Sacamos datos del cliente que compra
         $customer = $this->getDoctrine()
@@ -61,8 +63,6 @@ class PaymentResponseController extends AbstractController
 
             $response = $placetopay->query($request_id);
 
-            //dd($response);
-
             if ($response->isSuccessful()) {
                 // In order to use the functions please refer to the RedirectInformation class
                 if ($response->status()->isApproved()) {
@@ -76,39 +76,44 @@ class PaymentResponseController extends AbstractController
                         ->getRepository(Products::class)
                         ->find($product_id);
 
+                    // Activamos que el producto fue pagado y aprobado
+                    $em = $this->getDoctrine()->getManager();
+                    $order = $em->getRepository(Orders::class)->findOneBy(['id' => $order_id]);;
+                    $order->setIsPaid(true);
+                    $order->setIsApproved(true);
+                    $em->persist($order);
+                    $em->flush();
+
+                    $additional_info = $response->payment[0]->status()->message()
+                        . ' - ' . $response->payment[0]->status()->reason()
+                        . ' - ' . $response->payment[0]->reference()
+                        . ' - ' . $response->payment[0]->internalReference();
+
+                    $operation_code = $response->payment[0]->status()->reason();
+
                 } else {
                     $message = $response->status()->message();
                     $status = $response->status()->status();
-
-                    $server_url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-
-                    $error_return_url = $server_url . '/payment/response/error';
-                    $source_url = $server_url . '/payment/attempt';
-                    $success_return_url = $server_url. '/payment/response/exito';
-                    $external_reference = $order_info;
-
                 }
+
+
+                // Persistimos la respuesta a la transacción
+                $payment_response = new PaymentResponse();
+                $entityManager = $this->getDoctrine()->getManager();
+                $payment_response->setStatusInfo($response->status()->message());
+                $payment_response->setStatusCode($response->status()->status());
+                $payment_response->setPaymentAttemptId($payment_attempt_id);
+                $payment_response->setAdditionalInfo($additional_info);
+                $payment_response->setOperationCode($operation_code);
+                $entityManager->persist($payment_response);
+                $entityManager->flush();
+
             } else {
                 // There was some error with the connection so check the message
                 $message = $response->status()->message();
                 $error = true;
             }
 
-            // Persistimos la respuesta a la transacción
-            $additional_info = $response->payment[0]->status()->message()
-                     . ' - ' . $response->payment[0]->status()->reason()
-                     . ' - ' . $response->payment[0]->reference()
-                     . ' - ' . $response->payment[0]->internalReference();
-
-            $payment_response = new PaymentResponse();
-            $entityManager = $this->getDoctrine()->getManager();
-            $payment_response->setStatusInfo($response->status()->message());
-            $payment_response->setStatusCode($response->status()->status());
-            $payment_response->setPaymentAttemptId($payment_attempt_id);
-            $payment_response->setAdditionalInfo($additional_info);
-            $payment_response->setOperationCode($response->payment[0]->status()->reason());
-            $entityManager->persist($payment_response);
-            $entityManager->flush();
 
         } catch (Exception $e) {
             $error = true;

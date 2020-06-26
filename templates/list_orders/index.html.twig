@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Orders{% endblock %}
+
+{% block content %}
+
+
+    {% if order_list %}
+        <div id="order-detail-content" class="table_block table-responsive">
+            <table id="cart_summary" class="table table-bordered stock-management-on">
+                <thead>
+                <tr>
+                    <th class="cart_product first_item">Id</th>
+                    <th class="cart_description item">Cliente</th>
+                    <th class="cart_quantity item text-center">Aprobada</th>
+                    <th class="cart_quantity item text-center">Pagada</th>
+                    <th class="cart_total item text-right">Total</th>
+                </tr>
+                </thead>
+                <tfoot>
+                </tfoot>
+                <tbody>
+                {% set totalPrice = 0 %}
+                {% for order in order_list %}
+                    {% if order.isPaid and order.isApproved %}
+                    {% set totalPrice = totalPrice + order.total %}
+                    {% endif %}
+                    <tr id="product_370_0_0_0" class="cart_item last_item first_item address_0 odd">
+                    <td class="cart_product">
+                        {{ order.id }}
+                    </td>
+                    <td class="cart_description">
+                        {{ order.customerName }}
+                    </td>
+                    <td class="cart_unit text-center">
+                        {{ order.isApproved ? 'Aprobada' : 'No aprobada' }}
+                    </td>
+                    <td class="cart_unit text-center">
+                        {{ order.isPaid ? 'Pagada' : 'No pagada' }}
+                    </td>
+                    <td class="cart_quantity text-center">
+                        {{ order.total|number_format(2, '.', ',') }}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4" class="cart_description">Total venta órdenes pagadas y aprobadas (inc. IVA) &nbsp;</td>
+                    <td class="cart_quantity text-center">{{ totalPrice|number_format(2, '.', ',') }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div> <!-- end order-detail-content -->
+    {% else %}
+        <p>No hay órdenes para mostrar</p>
+    {% endif %}
+
+{% endblock %}
+
