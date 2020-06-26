@@ -64,6 +64,20 @@ class PaymentAttempt
     private $errorReturnUrl;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="external_reference", type="string", length=256, nullable=true)
+     */
+    private $externalReference;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="request_id", type="integer", nullable=true)
+     */
+    private $requestId;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -161,6 +175,19 @@ class PaymentAttempt
 
         return $this;
     }
+
+    public function getRequestId(): ?int
+    {
+        return $this->requestId;
+    }
+
+    public function setRequestId(?int $requestId): self
+    {
+        $this->requestId = $requestId;
+
+        return $this;
+    }
+
 
     /**
      * Gets triggered only on insert

@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Entity\Orders;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -19,14 +18,26 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class OrderController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="order")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function homepage(Request $request)
+    public function index(Request $request)
     {
+        // Para el inicio de la orden, escogemos al azar, un producto de los cinco creados
         $product_id = rand(1,5);
+
+        // Cada orden, manejará un identificador de cliente creado al azar
+        $customer_id = rand(1000,9999);
+
+        // Sacamos datos del producto escogido
+        $product = $this->getDoctrine()
+            ->getRepository(Products::class)
+            ->find($product_id);
 
         $order = new Orders();
 
+        // Creamos el formulario de la orden
         $form = $this->createFormBuilder($order)
             ->setMethod('POST')
             ->add('customer_name', TextType::class, array(
@@ -57,13 +68,25 @@ class OrderController extends AbstractController
                 )
             ))
             ->add('product_id', HiddenType::class, array(
-                'data' => $product_id
+                'data' => $product->getId()
+            ))
+            ->add('net', HiddenType::class, array(
+                'data' => $product->getProductValue() // El neto y el total son iguales al valor del producto. No hay descuentos ni bonificaciones
+            ))
+            ->add('tax', HiddenType::class, array(
+                'data' => $product->getProductValue()*0.19 // Se asume el iva fijo del 19%
+            ))
+            ->add('amount', HiddenType::class, array(
+                'data' => 1 // Se asume para la prueba, un solo producto
+            ))
+            ->add('total', HiddenType::class, array(
+                'data' => $product->getProductValue() // El neto y el total son iguales al valor del producto. No hay descuentos ni bonificaciones
             ))
             ->add('customer_id', HiddenType::class, array(
-                'data' => 54321
+                'data' => $customer_id
             ))
             ->add('payment_method_id', HiddenType::class, array(
-                'data' => 15
+                'data' => 15 // Se asume que siempre va el mismo tipo de pago
             ))
             ->add('submitButton', SubmitType::class, array(
                 'label' => 'Enviar',
@@ -81,37 +104,22 @@ class OrderController extends AbstractController
 
             $sel_product_id = $form->get('product_id')->getData();
             $customer_id = $form->get('customer_id')->getData();
+            $payment_method_id = $form->get('payment_method_id')->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);
             $entityManager->flush();
 
+            $order_id = $order->getId();
+
             return $this->redirectToRoute('order_preview', array(
-                'product_id' => $sel_product_id,
-                'customer_id' => $customer_id
+                'order_info' => $sel_product_id . '-' . $customer_id . '-' . $order_id . '-' . $payment_method_id
             ));
         }
 
-        return $this->render('order/homepage.html.twig', [
+        return $this->render('order/index.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-    /**
-     * @Route("/order-preview/{product_id}/{customer_id}", name="order_preview")
-     * @param $product_id
-     * @param $customer_id
-     * @return Response
-     */
-    public function orderPreview($product_id, $customer_id)
-    {
-        $product = $this->getDoctrine()
-                        ->getRepository(Products::class)
-                        ->find($product_id);
-
-        return $this->render('order/order-preview.html.twig', [
-            'product' => $product,
-            'customer_id' => $customer_id
-        ]);
-    }
 }

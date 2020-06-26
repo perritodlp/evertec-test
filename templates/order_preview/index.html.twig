@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- Shopping Cart -->
+    {% if customer_fullname %}
+        <div>
+            <h1 id="cart_title" class="page-heading">
+                2 Resumen de productos en su orden.
+                <span class="heading-counter float-right"><small>{{ customer_fullname }}, su orden contiene
+                  <span id="summary_products_quantity">1 producto</span></small>
+                </span>
+            </h1>
+        </div>
+    {% endif %}
+
+    {% if product %}
+        <div id="order-detail-content" class="table_block table-responsive">
+            <table id="cart_summary" class="table table-bordered stock-management-on">
+                <thead>
+                <tr>
+                    <th class="cart_product first_item">Producto</th>
+                    <th class="cart_description item">Descripción</th>
+                    <th class="cart_unit item text-right">Precio unitario</th>
+                    <th class="cart_quantity item text-center">Cant.</th>
+                    <th class="cart_total item text-right">Total</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr class="cart_total_price">
+                    <td rowspan="3" colspan="2" id="cart_voucher" class="cart_voucher"></td>
+                    <td colspan="2" class="text-right">Total productos (IVA inc.)</td>
+                    <td colspan="2" class="price" id="total_product">{{ product.productValue|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr class="cart_total_delivery">
+                    <td colspan="2" class="text-right">Total envío:</td>
+                    <td colspan="2" class="price" id="total_shipping">0</td>
+                </tr>
+                <tr class="cart_total_voucher unvisible">
+                    <td colspan="2" class="text-right">
+                        Total de cupones de descuento (IVA inc.)
+                    </td>
+                    <td colspan="2" class="price-discount price" id="total_discount">
+                        $0
+                    </td>
+                </tr>
+                <tr class="cart_total_price">
+                    <td colspan="2" class="total_price_container text-right">
+                        <span>Total</span>
+                    </td>
+                    <td colspan="2" class="price" id="total_price_container">
+                        <span id="total_price">{{ product.productValue|number_format(2, '.', ',') }}</span>
+                    </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr id="product_370_0_0_0" class="cart_item last_item first_item address_0 odd">
+                    <td class="cart_product">
+                        <a href="#">
+                            <img src="/img/{{ product.productImage }}" alt="{{ product.productName }}" width="98" height="98"></a>
+                    </td>
+                    <td class="cart_description">
+                        <p class="product-name">
+                            <a href="#">{{ product.productName }}</a></p>
+                        <small class="cart_ref">SKU : {{ product.productReference }}</small>
+                    </td>
+                    <td class="cart_unit" data-title="Precio unitario">
+                        <ul class="price text-right" id="product_price_370_0_0">
+                            <li class="price">{{ product.productValue|number_format(2, '.', ',') }}</li>
+                        </ul>
+                    </td>
+                    <td class="cart_quantity text-center">
+                        <input type="hidden" value="1" name="quantity_370_0_0_0_hidden">
+                        <input size="2" disabled="disabled" type="text"  autocomplete="off" class="cart_quantity_input form-control grey" value="1" name="quantity_370_0_0_0">
+                    </td>
+                    <td class="cart_total" data-title="Total">
+                    <span class="price" id="total_product_price_370_0_0">
+                      {{ product.productValue|number_format(2, '.', ',') }}
+                    </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="m-1 float-right">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div> <!-- end order-detail-content -->
+    {% else %}
+        <p>No hay productos para mostrar</p>
+    {% endif %}
+{% endblock %}
